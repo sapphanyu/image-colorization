@@ -1,0 +1,482 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;500;600;700&family=Fira+Code:wght@400;600&display=swap');
+
+  @page {
+    size: 1920px 1080px;
+    margin: 0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: 'Kanit', sans-serif;
+    background: #0f172a;
+    color: #f8fafc;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .slide {
+    width: 1920px;
+    height: 1080px;
+    page-break-after: always;
+    position: relative;
+    padding: 60px 80px;
+    background: radial-gradient(circle at 15% 15%, #1e293b 0%, #0f172a 100%);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .slide-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 2px solid #334155;
+    padding-bottom: 20px;
+    margin-bottom: 35px;
+  }
+
+  .slide-title-wrap h2 {
+    font-size: 40px;
+    font-weight: 700;
+    background: linear-gradient(90deg, #38bdf8, #818cf8);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .slide-title-wrap p {
+    font-size: 20px;
+    color: #94a3b8;
+    margin-top: 4px;
+  }
+
+  .tag {
+    background: rgba(56, 189, 248, 0.15);
+    color: #38bdf8;
+    border: 1px solid rgba(56, 189, 248, 0.3);
+    padding: 8px 18px;
+    border-radius: 9999px;
+    font-size: 18px;
+    font-weight: 600;
+  }
+
+  .content-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 40px;
+    flex: 1;
+    align-items: center;
+  }
+
+  .card {
+    background: rgba(30, 41, 59, 0.7);
+    border: 1px solid #334155;
+    border-radius: 20px;
+    padding: 30px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  }
+
+  .card h3 {
+    font-size: 26px;
+    color: #f1f5f9;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .card p, .card li {
+    font-size: 20px;
+    color: #cbd5e1;
+    line-height: 1.6;
+  }
+
+  ul {
+    list-style: none;
+    padding-left: 0;
+  }
+
+  li {
+    position: relative;
+    padding-left: 28px;
+    margin-bottom: 12px;
+  }
+
+  li::before {
+    content: "✦";
+    position: absolute;
+    left: 0;
+    color: #38bdf8;
+    font-size: 18px;
+  }
+
+  .stat-badge {
+    display: inline-block;
+    background: #0369a1;
+    color: #e0f2fe;
+    padding: 4px 14px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 18px;
+  }
+
+  .footer-bar {
+    position: absolute;
+    bottom: 25px;
+    left: 80px;
+    right: 80px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 16px;
+    color: #64748b;
+    border-top: 1px solid #1e293b;
+    padding-top: 12px;
+  }
+
+  /* Cover Slide */
+  .cover {
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    background: radial-gradient(circle at 50% 40%, #1e1b4b 0%, #0f172a 75%);
+  }
+
+  .cover-badge {
+    background: linear-gradient(90deg, #4f46e5, #06b6d4);
+    color: white;
+    padding: 10px 24px;
+    border-radius: 50px;
+    font-size: 22px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin-bottom: 24px;
+    display: inline-block;
+  }
+
+  .cover h1 {
+    font-size: 64px;
+    font-weight: 800;
+    line-height: 1.2;
+    margin-bottom: 20px;
+    background: linear-gradient(135deg, #ffffff 30%, #93c5fd 70%, #c084fc 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .cover p.subtitle {
+    font-size: 28px;
+    color: #94a3b8;
+    margin-bottom: 50px;
+  }
+
+  .team-box {
+    display: flex;
+    gap: 30px;
+    justify-content: center;
+    width: 100%;
+    max-width: 1100px;
+  }
+
+  .member-card {
+    flex: 1;
+    background: rgba(30, 41, 59, 0.85);
+    border: 1px solid #475569;
+    border-radius: 20px;
+    padding: 28px;
+    text-align: left;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.4);
+  }
+
+  .member-card .role {
+    font-size: 16px;
+    color: #38bdf8;
+    font-weight: 600;
+    text-transform: uppercase;
+  }
+
+  .member-card .name {
+    font-size: 26px;
+    font-weight: 700;
+    color: #ffffff;
+    margin: 6px 0;
+  }
+
+  .member-card .id {
+    font-family: 'Fira Code', monospace;
+    font-size: 20px;
+    color: #fbbf24;
+  }
+
+  .slide-img {
+    width: 100%;
+    height: auto;
+    max-height: 580px;
+    object-fit: contain;
+    border-radius: 16px;
+    border: 1px solid #334155;
+    background: #020617;
+  }
+
+  .metric-highlight {
+    display: flex;
+    gap: 20px;
+    margin-top: 15px;
+  }
+
+  .metric-box {
+    flex: 1;
+    background: #0f172a;
+    border: 1px solid #38bdf8;
+    border-radius: 14px;
+    padding: 16px;
+    text-align: center;
+  }
+
+  .metric-box .val {
+    font-size: 36px;
+    font-weight: 700;
+    color: #38bdf8;
+  }
+
+  .metric-box .lbl {
+    font-size: 16px;
+    color: #94a3b8;
+    margin-top: 4px;
+  }
+</style>
+</head>
+<body>
+
+  <!-- SLIDE 1: COVER -->
+  <div class="slide cover">
+    <div class="cover-badge">MINI PROJECT • DEEP LEARNING</div>
+    <h1>Image Colorization<br>ภาพวาดสเก็ต ➔ เติมสีให้ภาพอัตโนมัติ</h1>
+    <p class="subtitle">การเรียนรู้เชิงลึกเพื่อการแปลงภาพลายเส้นเป็นภาพสีเป้าหมายด้วย U-Net</p>
+
+    <div class="team-box">
+      <div class="member-card">
+        <div class="role">สมาชิกกลุ่มคนที่ 1</div>
+        <div class="name">นายสรรพัญญู (Sapphanyu)</div>
+        <div class="id">รหัสนักศึกษา: [กรอกรหัสสมาชิกคนที่ 1]</div>
+      </div>
+      <div class="member-card">
+        <div class="role">สมาชิกกลุ่มคนที่ 2</div>
+        <div class="name">[ชื่อ-นามสกุล สมาชิกคนที่ 2]</div>
+        <div class="id">รหัสนักศึกษา: [กรอกรหัสสมาชิกคนที่ 2]</div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>วิชา Deep Learning • กำหนดส่ง 31 ตุลาคม 2569</span>
+      <span>Github: github.com/sapphanyu/image-colorization</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 2: TOPIC & DATASET -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-title-wrap">
+        <h2>1. หัวข้อภาพและการสร้างชุดข้อมูล (Dataset)</h2>
+        <p>การวาดภาพสเก็ตและสร้างภาพสีเป้าหมายด้วยตนเอง 100%</p>
+      </div>
+      <span class="tag">Data Creation</span>
+    </div>
+
+    <div class="content-grid">
+      <div class="card">
+        <h3>🎨 หัวข้อภาพที่เลือกทำ</h3>
+        <ul>
+          <li><strong>หมวดหมู่วัตถุธรรมชาติ 3 ชนิด:</strong>
+            <br>1. <span class="stat-badge">Apple</span> ผลแอปเปิ้ล (20 คู่ภาพ)
+            <br>2. <span class="stat-badge">Carrot</span> หัวแครอท (20 คู่ภาพ)
+            <br>3. <span class="stat-badge">Flower</span> ดอกไม้ (20 คู่ภาพ)
+          </li>
+          <li><strong>การแบ่งงานในกลุ่ม (2 คน):</strong>
+            <br>• สมาชิกคนที่ 1: สร้าง 30 ภาพสเก็ต + 30 ภาพสี
+            <br>• สมาชิกคนที่ 2: สร้าง 30 ภาพสเก็ต + 30 ภาพสี
+          </li>
+          <li><strong>รวมทั้งหมด:</strong> 60 คู่ภาพ (120 ไฟล์) แบบ Paired Images</li>
+          <li><strong>คุณลักษณะภาพ:</strong> มีความหลากหลายของเส้น ลวดลาย และเฉดสี เพื่อท้าทายโมเดล</li>
+        </ul>
+      </div>
+
+      <div style="text-align: center;">
+        <img src="dataset_samples.png" class="slide-img" alt="Dataset Samples">
+        <p style="color: #94a3b8; font-size: 16px; margin-top: 8px;">ตัวอย่างคู่ภาพ (Sketch ลายเส้น ซ้าย | Color สีเป้าหมาย ขวา)</p>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>Mini Project: Image Colorization</span>
+      <span>Slide 2 / 6</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 3: PREPROCESSING & TRAIN/TEST SPLIT -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-title-wrap">
+        <h2>2. การเตรียมข้อมูลและการแบ่ง Train / Test Split</h2>
+        <p>Data Pipeline, Resizing, Normalization และสัดส่วนการทดลอง</p>
+      </div>
+      <span class="tag">Preprocessing</span>
+    </div>
+
+    <div class="content-grid">
+      <div class="card">
+        <h3>⚙️ การเตรียมข้อมูล (Preprocessing)</h3>
+        <ul>
+          <li><strong>Standardize Resolution:</strong> ปรับขนาดทุกภาพเป็น <code>128 × 128 px</code></li>
+          <li><strong>Color Mode:</strong> แปลงเป็นภาพ RGB 3 Channels</li>
+          <li><strong>Normalization:</strong> ปรับค่าความสว่างพิกเซลจาก <code>[0, 255]</code> ให้อยู่ในช่วง <code>[-1, 1]</code> เพื่อให้สอดคล้องกับ Activation Tanh ที่ Output layer</li>
+          <li><strong>Paired Filename Matching:</strong> จัดชื่อไฟล์ตรงกัน 1:1 เช่น <code>apple_01.png</code></li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>📊 การแบ่งชุดข้อมูล (Train / Test Split)</h3>
+        <ul>
+          <li><strong>สัดส่วนการแบ่ง: 80% : 20%</strong>
+            <br>• <strong>Train Set: 80% (48 คู่ภาพ)</strong> ➔ ใช้ฝึกสอนโมเดล
+            <br>• <strong>Test Set: 20% (12 คู่ภาพ)</strong> ➔ ใช้วัดประสิทธิภาพอย่างเป็นธรรม (ภาพ unseen)
+          </li>
+          <li><strong>Reproducibility:</strong> ล็อกค่า <code>np.random.seed(42)</code> ทำให้ผลการสุ่มคงที่ สามารถรันซ้ำได้ 100%</li>
+          <li><strong>Batch Size:</strong> กำหนดขนาด Batch = 8 ผ่าน PyTorch DataLoader</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>Mini Project: Image Colorization</span>
+      <span>Slide 3 / 6</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 4: MODEL ARCHITECTURE -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-title-wrap">
+        <h2>3. สถาปัตยกรรมโมเดล (U-Net Architecture)</h2>
+        <p>โครงสร้างโมเดล Image-to-Image พร้อม Skip Connections และ Loss Function</p>
+      </div>
+      <span class="tag">Deep Learning Model</span>
+    </div>
+
+    <div class="content-grid">
+      <div class="card">
+        <h3>🧠 ทำไมจึงเลือกโมเดล U-Net?</h3>
+        <ul>
+          <li><strong>Encoder (Contracting Path):</strong> ใช้ Convolution 3x3 + BatchNorm + ReLU สกัด Feature และลดมิติด้วย MaxPool2d (32 ➔ 64 ➔ 128 ➔ 256 channels)</li>
+          <li><strong>Decoder (Expansive Path):</strong> ทำ Upsampling ด้วย ConvTranspose2d ขยายมิติกลับสู่ 128x128</li>
+          <li><strong>Skip Connections (จุดเด่นหลัก):</strong> เชื่อมโยงข้อมูลลายเส้นจาก Encoder ไปยัง Decoder โดยตรง ช่วยให้<strong>ขอบภาพคมชัด ลายเส้นไม่เบลอมัว</strong></li>
+          <li><strong>Output Layer:</strong> Conv 1x1 + <code>Tanh</code> ผลิตภาพสี RGB 3 ช่อง</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <h3>🎯 ฟังก์ชันเป้าหมายและการวัดประสิทธิภาพ</h3>
+        <ul>
+          <li><strong>Loss Function: L1 Loss (MAE)</strong>
+            <br>เลือกใช้ L1 Loss แทน L2 (MSE) เพราะช่วยลดปัญหาภาพเบลอ (Blurriness) และให้สีสด คมชัดตรงตามเป้าหมายมากกว่า
+          </li>
+          <li><strong>Optimizer:</strong> Adam Optimizer ด้วย Learning Rate = <code>0.001</code></li>
+          <li><strong>เกณฑ์การวัดประสิทธิภาพ (Evaluation Metrics):</strong>
+            <br>1. <strong>MAE (Mean Absolute Error):</strong> วัดค่าความคลาดเคลื่อนเฉลี่ยของระดับสี
+            <br>2. <strong>PSNR (Peak Signal-to-Noise Ratio):</strong> วัดคุณภาพและความคมชัดของภาพ (dB)
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>Mini Project: Image Colorization</span>
+      <span>Slide 4 / 6</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 5: TRAINING & EVALUATION -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-title-wrap">
+        <h2>4. ผลการฝึกสอนและการวัดประสิทธิภาพ (Evaluation)</h2>
+        <p>กราฟการลู่เข้าของ Loss Curve และตัวเลขชี้วัดบนชุดทดสอบ (Test Set)</p>
+      </div>
+      <span class="tag">Performance Metrics</span>
+    </div>
+
+    <div class="content-grid">
+      <div style="text-align: center;">
+        <img src="loss_curve.png" class="slide-img" alt="Loss Curve">
+      </div>
+
+      <div class="card">
+        <h3>📈 ผลการเทรน (Training Analysis)</h3>
+        <ul>
+          <li><strong>การลู่เข้าของโมเดล (Convergence):</strong>
+            <br>• Train Loss ลดลงอย่างมีนัยสำคัญจาก <strong>0.8010 ➔ 0.0647</strong>
+            <br>• Test Loss ลดลงสอดคล้องกันจาก <strong>0.9204 ➔ 0.0835</strong>
+          </li>
+          <li><strong>ไม่มีภาวะ Overfitting:</strong> กราฟ Train และ Test Loss ลดลงไปในทิศทางเดียวกันอย่างมีเสถียรภาพ</li>
+        </ul>
+
+        <div class="metric-highlight">
+          <div class="metric-box">
+            <div class="val">0.0418</div>
+            <div class="lbl">Average Test MAE (ยิ่งน้อยยิ่งดี)</div>
+          </div>
+          <div class="metric-box">
+            <div class="val">18.39 dB</div>
+            <div class="lbl">Average Test PSNR (ความคมชัด)</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>Mini Project: Image Colorization</span>
+      <span>Slide 5 / 6</span>
+    </div>
+  </div>
+
+  <!-- SLIDE 6: RESULTS & CONCLUSION -->
+  <div class="slide">
+    <div class="slide-header">
+      <div class="slide-title-wrap">
+        <h2>5. ผลลัพธ์ภาพที่ได้และข้อสรุป (Qualitative Results)</h2>
+        <p>เปรียบเทียบภาพวาดสเก็ต ➔ ภาพสีที่โมเดลเติมให้ ➔ ภาพเป้าหมายจริง (Test Set)</p>
+      </div>
+      <span class="tag">Results & Summary</span>
+    </div>
+
+    <div class="content-grid" style="grid-template-columns: 1.15fr 0.85fr;">
+      <div style="text-align: center;">
+        <img src="slide_results_grid.png" class="slide-img" alt="Colorization Results Grid">
+      </div>
+
+      <div class="card">
+        <h3>🔍 การวิเคราะห์ผลลัพธ์ (Discussion)</h3>
+        <ul>
+          <li><strong>ความแม่นยำของสี (Color Fidelity):</strong> โมเดลสามารถจดจำรูปทรงของผลไม้และดอกไม้ แล้วเลือกใช้สีที่สอดคล้องกับธรรมชาติได้ถูกต้อง (แอปเปิ้ลสีแดง, แครอทสีส้ม, ใบไม้สีเขียว)</li>
+          <li><strong>ความคมชัดของลายเส้น:</strong> ไม่เกิดการเบลอหรือสีรั่วออกจากกรอบลายเส้นอันเนื่องมาจากประสิทธิภาพของ Skip Connections</li>
+          <li><strong>สรุปผลโครงงาน:</strong> U-Net ตอบโจทย์งาน Image Colorization ได้อย่างมีประสิทธิภาพแม้มีข้อจำกัดด้านขนาดข้อมูลขนาดกะทัดรัด</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="footer-bar">
+      <span>Mini Project: Image Colorization</span>
+      <span>Slide 6 / 6 • ขอบคุณครับ / ค่ะ</span>
+    </div>
+  </div>
+
+</body>
+</html>

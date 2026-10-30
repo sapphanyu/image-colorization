@@ -1,0 +1,11 @@
+# Python & Jupyter
+__pycache__/
+*.py[cod]
+*$py.class
+.ipynb_checkpoints/
+*.egg-info/
+
+# Temporary / OS
+.DS_Store
+Thumbs.db
+1/
